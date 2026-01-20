@@ -6,6 +6,8 @@ import numpy as np
 from modules import signal
 import base64
 from io import BytesIO
+from pathlib import Path
+
 
 
 
@@ -150,42 +152,42 @@ def convertBinsToPlottableEvents(bins):
 
     return proteinEvents
 
-def virtualSDSPage(proteins=Protein.getAllProteins()):
+# def virtualSDSPage(proteins=Protein.getAllProteins()):
     
-    # Filter proteins with abundance >0
-    proteins = [p for p in proteins if p.get_abundance() > 0]
-    import random
-    random.seed(1)
-    #print(len(proteins))
-    #proteins = random.choices(proteins, k=2000) 
-    binnedProteins = binProteinsByWeight(proteins)
-    plottableEvents = convertBinsToPlottableEvents(binnedProteins)
+#     # Filter proteins with abundance >0
+#     proteins = [p for p in proteins if p.get_abundance() > 0]
+#     import random
+#     random.seed(1)
+#     #print(len(proteins))
+#     #proteins = random.choices(proteins, k=2000) 
+#     binnedProteins = binProteinsByWeight(proteins)
+#     plottableEvents = convertBinsToPlottableEvents(binnedProteins)
 
-    weights = [pe['averageWeight'] for pe in plottableEvents if pe['proteinCount'] > 0]
-    abundances = [pe['abundanceSum'] for pe in plottableEvents if pe['proteinCount'] > 0]
+#     weights = [pe['averageWeight'] for pe in plottableEvents if pe['proteinCount'] > 0]
+#     abundances = [pe['abundanceSum'] for pe in plottableEvents if pe['proteinCount'] > 0]
     
-    opacities,widths = convertProteinAbundance(abundances=abundances)
-    fig, ax = plt.subplots(figsize=(10, 2))
-    ax.axes.get_yaxis().set_visible(False)
-    # create a list-of-sequences so each weight is a separate line, and build per-line RGBA colors
-    positions = [[w] for w in weights]
-    print("Plottable events:")
-    for i in plottableEvents:
-        print(i)
-    heights = [len(weights)*1e10 for _ in weights]
-    heights = [1000 for _ in weights]
-    colors = [(0.0, 0.0, 1.0, float(a)) for a in opacities]  # blue with per-line alpha
-    ax.eventplot(positions=positions,linelengths=heights, linewidths=widths, colors=colors, orientation='horizontal')
-    ax.set_title('Virtual SDS-PAGE Protein Weight Distribution')
-    ax.set_xlabel('Molecular Weight (kDa)')
-    ax.set_xscale('log')
-    ax.minorticks_off()  
-    ax.set_xticks([10,15,20,30,40,50,60,80,110,160,260], labels=['10','15','20','30','40','50','60','80','110','160','260'])
-    ax.set_xlim(0,265)
-    #ax.set_ylim(0.4, 1.6)
+#     opacities,widths = convertProteinAbundance(abundances=abundances)
+#     fig, ax = plt.subplots(figsize=(10, 2))
+#     ax.axes.get_yaxis().set_visible(False)
+#     # create a list-of-sequences so each weight is a separate line, and build per-line RGBA colors
+#     positions = [[w] for w in weights]
+#     print("Plottable events:")
+#     for i in plottableEvents:
+#         print(i)
+#     heights = [len(weights)*1e10 for _ in weights]
+#     heights = [1000 for _ in weights]
+#     colors = [(0.0, 0.0, 1.0, float(a)) for a in opacities]  # blue with per-line alpha
+#     ax.eventplot(positions=positions,linelengths=heights, linewidths=widths, colors=colors, orientation='horizontal')
+#     ax.set_title('Virtual SDS-PAGE Protein Weight Distribution')
+#     ax.set_xlabel('Molecular Weight (kDa)')
+#     ax.set_xscale('log')
+#     ax.minorticks_off()  
+#     ax.set_xticks([10,15,20,30,40,50,60,80,110,160,260], labels=['10','15','20','30','40','50','60','80','110','160','260'])
+#     ax.set_xlim(0,265)
+#     #ax.set_ylim(0.4, 1.6)
     
-    plt.tight_layout()
-    #plt.show()
+#     plt.tight_layout()
+#     #plt.show()
     
     
     
@@ -371,6 +373,11 @@ def virtualSDSPage_2DGaussian(proteins=Protein.getAllProteins(),
             abundance vs. molecular-weight distributions.
                             
     """
+    if proteins is None:
+        img_path = Path('app/EWOKS_Interface/static/img/sdsNoImgSupplied.png')
+        with open(img_path, 'rb') as img_file:
+            return base64.b64encode(img_file.read()).decode('utf-8')
+    
     # Filter proteins with abundance >0
     proteins = [p for p in proteins if p.get_abundance() > 0]
     
