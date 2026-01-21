@@ -6,11 +6,11 @@
 "icon": "icons/modules/centrifuge.svg",
 "settings": {
 
-    "MW cutoff": {
+    "MW cutoff deplete: ": {
         "formtype": "ChoiceField",
-        "options": {"Option 1": ["Internal_code_for_option_1"],
-                    "Option 2": ["Internal_code_for_option_2"],
-                    "Option 3":["Internal_code_for_option_3"]
+        "options": {"Option 1": ["below"],
+                    "Option 2": ["above"]
+                    
                     }
                 },
 
