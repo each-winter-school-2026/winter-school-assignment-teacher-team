@@ -49,6 +49,10 @@ def select(moduleIdentifier,selectedSettings,moduleData):
             # Does not perform any real processing; for demonstration only.
             proteins = ola(moduleIdentifier,selectedSettings,moduleData)
             return virtualSDSPage_2DGaussian(proteins)
+        case "PowerRangers":
+            # Does not perform any real processing; for demonstration only.
+            proteins = PowerRangers(moduleIdentifier,selectedSettings,moduleData)
+            return virtualSDSPage_2DGaussian(proteins)
         case _: # Add new modules above 
             # Do not add modules below
             raise NotImplementedError(f"Module: {moduleIdentifier} is not implemented yet.")
@@ -220,6 +224,9 @@ def SDS_page_fractionation(moduleIdentifier, selectedSettings,moduleData):
     return Protein.getAllProteins()
     
 def ola(moduleIdentifier,selectedSettings,moduleData):
+    return Protein.getAllProteins()
+
+def PowerRangers(moduleIdentifier,selectedSettings,moduleData):
     return Protein.getAllProteins()
 
 def newModule(moduleIdentifier,selectedSettings,moduleData):
