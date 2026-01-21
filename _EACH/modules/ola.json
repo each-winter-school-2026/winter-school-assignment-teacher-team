@@ -19,9 +19,9 @@
     
     "MW cutoff no.": {
         "formtype": "DecimalField",
-        "default": 99.0,
+        "default": 30.0,
         "min": 0.0,
-        "max": 100.0,
+        "max": 300.0,
         "step": 0.1}
     }
 }
