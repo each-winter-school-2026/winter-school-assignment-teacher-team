@@ -60,7 +60,7 @@ def select(moduleIdentifier,selectedSettings,moduleData):
 def Retention_factor(moduleIdentifier,selectedSettings,moduleData):
     #We apply the equation parameters
 
-    Polaritypartition =        
+    Partition = sum(AMINO_ACID_POLARITY.values())        
 def powerRangers(moduleIdentifier,selectedSettings,moduleData):
     # Get the cutoff value (0-300 kDa)
     chosenCutoff = extractSetting(settingName="Molecular weight cut off",
