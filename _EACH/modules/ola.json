@@ -8,8 +8,8 @@
 
     "MW cutoff deplete: ": {
         "formtype": "ChoiceField",
-        "options": {"above": ["above"],
-                    "below": ["below"]
+        "options": {"above": "depleteAbove",
+                    "below": "depleteBelow"
                     
                     }
                 },
