@@ -57,7 +57,20 @@ def select(moduleIdentifier,selectedSettings,moduleData):
             # Do not add modules below
             raise NotImplementedError(f"Module: {moduleIdentifier} is not implemented yet.")
         
-
+def testModule(moduleIdentifier,selectedSettings,moduleData):
+    # Get the cutoff value (0-300 kDa)
+    chosenCutoff = extractSetting(settingName="Molecular weight cut off",
+                                  moduleIdentifier=moduleIdentifier,
+                                  selectedSettings=selectedSettings,
+                                  moduleData=moduleData)
+    
+    # Get the user's choice: deplete above or below?
+    depleteAboveOrBelow = extractSetting(settingName="Single choice field",
+                                moduleIdentifier=moduleIdentifier,
+                                selectedSettings=selectedSettings,
+                                moduleData=moduleData)
+    
+    return Protein.getAllProteins()
 def fasta_input(moduleIdentifier, selectedSettings,moduleData):
     """
     Load proteins from a selected FASTA file and convert sequences into Protein objects.
