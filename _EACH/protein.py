@@ -346,6 +346,12 @@ class Protein:
         self.weight = self.calculate_weight(self.sequence)
         self.hydrophobicity = self.calculate_hydrophobicity(self.sequence)
         self.isoelectric_point = self.calculate_isoelectric_point(self.sequence)
+        self.polarity = self.calculatepolarity(self.sequence)
+    
+    def calculatepolarity(self,sequence):
+        
+        rawSequenceWeight = sum([self.AMINO_ACID_POLARITY.get(aa,0) for aa in sequence])/len(self.sequence)
+        return round(rawSequenceWeight, ndigits=N_DIGITS_GLOBAL)
 
     def calculate_weight(self,sequence):
         """

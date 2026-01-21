@@ -58,9 +58,32 @@ def select(moduleIdentifier,selectedSettings,moduleData):
             raise NotImplementedError(f"Module: {moduleIdentifier} is not implemented yet.")
 
 def Retention_factor(moduleIdentifier,selectedSettings,moduleData):
-    #We apply the equation parameters
+    # We apply the equation parameters
+    # Get the polarity cutoff value
+    polarityCutoff = extractSetting(settingName="Polarity Cutoff",
+                                    moduleIdentifier=moduleIdentifier,
+                                    selectedSettings=selectedSettings,
+                                    moduleData=moduleData)
+    
+    # Get the user's choice: keep above or below cutoff?
+    keepAboveOrBelow = extractSetting(settingName="Keep Above/Below Polarity",
+                                      moduleIdentifier=moduleIdentifier,
+                                      selectedSettings=selectedSettings,
+                                      moduleData=moduleData)
+    
+    # Loop through all proteins and filter based on polarity
+    for protein in Protein.getAllProteins():
+        if keepAboveOrBelow == "above":
+            # Keep proteins with polarity above cutoff, deplete others
+            if protein.polarity < polarityCutoff:
+                protein.set_abundance(0.0)
+        elif keepAboveOrBelow == "below":
+            # Keep proteins with polarity below cutoff, deplete others
+            if protein.polarity > polarityCutoff:
+                protein.set_abundance(0.0)
+    
+    return Protein.getAllProteins()
 
-    Partition = sum(AMINO_ACID_POLARITY.values())        
 def powerRangers(moduleIdentifier,selectedSettings,moduleData):
     # Get the cutoff value (0-300 kDa)
     chosenCutoff = extractSetting(settingName="Molecular weight cut off",
@@ -75,7 +98,7 @@ def powerRangers(moduleIdentifier,selectedSettings,moduleData):
                                 moduleData=moduleData)
     
     for protein in Protein.getAllProteins():
-        if protein.weight < chosenCutoff:
+        if protein.polarity < chosenCutoff:
             protein.set_abundance(0.0)  # Set this proteins abundance to 0 preventing it from being visualized.
     
     return Protein.getAllProteins()
