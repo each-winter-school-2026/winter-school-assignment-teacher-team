@@ -249,6 +249,9 @@ def ola(moduleIdentifier,selectedSettings,moduleData):
                                 moduleIdentifier=moduleIdentifier,
                                 selectedSettings=selectedSettings,
                                 moduleData=moduleData)
+    
+  print(chosenCutoff,depleteAboveOrBelow)
+
     return Protein.getAllProteins()
 
 
