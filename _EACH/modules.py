@@ -250,7 +250,7 @@ def ola(moduleIdentifier,selectedSettings,moduleData):
                                 selectedSettings=selectedSettings,
                                 moduleData=moduleData)
     
-  print(chosenCutoff,depleteAboveOrBelow)
+    print(chosenCutoff,depleteAboveOrBelow)
 
     return Protein.getAllProteins()
 
@@ -286,7 +286,6 @@ def exampleModule(moduleIdentifier,selectedSettings,moduleData):
     print(f"Decimal field value: {decimalFieldValue}")
     print(f"Boolean field value: {booleanFieldValue}")
     print(f"Character field value: {charFieldValue}")
-    
     
     return Protein.getAllProteins()
 
