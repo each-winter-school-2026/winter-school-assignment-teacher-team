@@ -56,6 +56,7 @@ class Protein:
         'J': (AMINO_ACID_POLARITY['I'] + AMINO_ACID_POLARITY['L']) / 2,  # Isoleucine or Leucine
         'X': sum(AMINO_ACID_POLARITY.values()) / len(AMINO_ACID_POLARITY)  # Any amino acid
     })
+    
     childClasses = {}
     
     proteomeIdLookupTable = {
